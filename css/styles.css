@@ -10,6 +10,9 @@
   --color-accent: #0f766e;
   --color-accent-dark: #115e59;
   --color-accent-soft: #ccfbf1;
+  /* Text drawn on top of an accent-coloured background */
+  --color-on-accent: #ffffff;
+  --color-error: #b91c1c;
 
   /* System fonts only: nothing to download */
   --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -17,6 +20,31 @@
   --radius: 12px;
   --shadow: 0 1px 3px rgba(15, 23, 42, 0.08), 0 4px 12px rgba(15, 23, 42, 0.05);
   --max-width: 1100px;
+}
+
+/* ---------- Dark theme ----------
+   Set by js/script.js as data-theme="dark" on <html>.
+   Only the token values change: every rule below keeps using var(--...),
+   so there is no second copy of the layout to maintain.
+   The accent is lightened here because the light-theme teal (#0f766e) does
+   not have enough contrast against a dark background to stay readable. */
+:root[data-theme="dark"] {
+  --color-bg: #0f172a;
+  --color-surface: #1e293b;
+  --color-text: #e2e8f0;
+  --color-muted: #94a3b8;
+  --color-border: #334155;
+  --color-accent: #2dd4bf;
+  --color-accent-dark: #5eead4;
+  --color-accent-soft: #134e4a;
+  --color-on-accent: #0f172a;
+  --color-error: #fca5a5;
+
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3);
+
+  /* Tells the browser to draw its own UI (scrollbars, focus rings, form
+     controls) in dark mode too, instead of leaving them light. */
+  color-scheme: dark;
 }
 
 /* ---------- Base ---------- */
@@ -85,15 +113,50 @@ h3 {
 }
 
 .nav-links a {
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
   color: var(--color-muted);
   font-weight: 500;
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+/* Added by the scroll spy in js/script.js to the link whose section is
+   currently in view. */
+.nav-links a.active {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
 }
 
 .nav-links a:hover,
 .nav-links a:focus {
   color: var(--color-accent);
+}
+
+.theme-toggle {
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  background-color: var(--color-surface);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+}
+
+.theme-toggle:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+/* aria-pressed is the button's real state, so the styling follows it
+   rather than a separate class that could drift out of sync. */
+.theme-toggle[aria-pressed="true"] {
+  color: var(--color-accent-dark);
+  background-color: var(--color-accent-soft);
+  border-color: transparent;
 }
 
 /* ---------- Sections ---------- */
@@ -195,6 +258,12 @@ h3 {
   box-shadow: var(--shadow);
 }
 
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.25rem;
+}
+
 .contact-form label {
   margin-bottom: 0.35rem;
   font-weight: 600;
@@ -202,7 +271,6 @@ h3 {
 
 .contact-form input,
 .contact-form textarea {
-  margin-bottom: 1.25rem;
   padding: 0.75rem;
   border: 1px solid var(--color-border);
   border-radius: 8px;
@@ -222,6 +290,40 @@ h3 {
   resize: vertical;
 }
 
+.field-error {
+  /* Space is reserved even when empty, so the form does not jump
+     when a message appears. */
+  min-height: 1.25rem;
+  margin-top: 0.35rem;
+  font-size: 0.875rem;
+  color: var(--color-error);
+}
+
+/* aria-invalid is set by the script, so the styling follows the same state
+   that assistive technology reads. */
+.contact-form [aria-invalid="true"] {
+  border-color: var(--color-error);
+}
+
+.contact-form [aria-invalid="true"]:focus {
+  outline-color: var(--color-error);
+}
+
+.form-status {
+  margin: 1.25rem 0 0;
+  font-weight: 600;
+  color: var(--color-muted);
+}
+
+.form-status.success {
+  color: var(--color-accent-dark);
+}
+
+/* No gap while there is nothing to say */
+.form-status:empty {
+  margin: 0;
+}
+
 .contact-form button {
   align-self: flex-start;
   padding: 0.75rem 1.75rem;
@@ -229,7 +331,7 @@ h3 {
   border-radius: 8px;
   font: inherit;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--color-on-accent);
   background-color: var(--color-accent);
   cursor: pointer;
   transition: background-color 0.2s;
