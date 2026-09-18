@@ -374,8 +374,10 @@ h3 {
     padding: 0.75rem 1rem;
   }
 
+  /* The stacked header is taller now that it also holds the theme toggle,
+     so jumped-to headings need more room to clear it. */
   html {
-    scroll-padding-top: 110px;
+    scroll-padding-top: 155px;
   }
 
   .nav-links {
