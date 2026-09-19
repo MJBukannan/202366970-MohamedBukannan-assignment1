@@ -297,7 +297,11 @@ guideline for this assignment explicitly warns against.
 
 ## Browser and device testing
 
-Tested with an automated Playwright script driving Chromium, checking both
+Two layers of testing: an automated pass in Chromium for the detailed
+behaviour, and manual checks in the browsers the site is actually likely to be
+opened in.
+
+**Automated (Chromium).** A Playwright script drove Chromium through both
 themes, all three form paths, the scroll spy, and the console at four viewport
 widths.
 
@@ -316,6 +320,11 @@ submit shows the status line, clears the form, and neither reloads the page nor
 adds a query string to the URL; the scroll spy highlights the correct link at
 each section; anchor jumps clear the sticky header at every width; and the
 console reports no errors or warnings.
+
+**Manual (Chrome and Safari, macOS).** The finished page was opened and used by
+hand in both browsers: the navigation and anchor jumps, the theme toggle, the
+contact form and the responsive layout all behaved the same way in each, with
+no visual or functional differences between them.
 
 ## Known limitations
 

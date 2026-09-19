@@ -91,11 +91,11 @@ There is nothing to install and nothing to build.
 
 ## Browser support
 
-Developed and tested in Chromium at 1280px, 768px, 375px and 320px, in both
-light and dark themes. The features used — `IntersectionObserver`, the
-Constraint Validation API, CSS custom properties, `scroll-behavior` and
-`localStorage` — are supported in current versions of Chrome, Edge, Safari and
-Firefox.
+Tested by hand in **Chrome** and **Safari** on macOS, and with an automated
+Playwright pass in Chromium at 1280px, 768px, 375px and 320px, in both light
+and dark themes. The features used — `IntersectionObserver`, the Constraint
+Validation API, CSS custom properties, `scroll-behavior` and `localStorage` —
+are supported in current versions of Chrome, Edge, Safari and Firefox.
 
 ## AI usage
 
