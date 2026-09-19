@@ -7,10 +7,11 @@ It is a single static page with three sections — About Me, Projects and
 Contact — written in plain HTML, CSS and JavaScript with no framework, no build
 step and no backend.
 
-<!-- Add the GitHub Pages URL here once deployed:
 ## Live demo
-https://mjbukannan.github.io/202366970-MohamedBukannan-assignment1/
--->
+
+<https://mjbukannan.github.io/202366970-MohamedBukannan-assignment1/>
+
+Served by GitHub Pages from the `main` branch.
 
 ## Features
 
